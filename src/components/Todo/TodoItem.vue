@@ -5,7 +5,7 @@ const props = defineProps(['todo', 'index'])
 const emit = defineEmits(['remove'])
 
 const removeTodo = () => {
-  emit('remove', props.todo.title)
+  emit('remove', props.todo.id)
 }
 </script>
 

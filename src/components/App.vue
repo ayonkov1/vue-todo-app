@@ -7,16 +7,16 @@ import TodoList from './Todo/TodoList.vue'
 import TodoInput from './Todo/TodoInput.vue'
 
 const todos = reactive([
-  { title: 'Buy groceries', completed: false },
-  { title: 'Finish project report', completed: false }
+  { id: 1, title: 'Buy groceries', completed: false },
+  { id: 2, title: 'Finish project report', completed: false }
 ])
 
 const addTodo = (title: string) => {
-  todos.push({ title, completed: false })
+  todos.push({ id: todos.length + 1, title, completed: false })
 }
 
-const removeTodo = (title: string) => {
-  const index = todos.findIndex((todo) => todo.title === title)
+const removeTodo = (id: number) => {
+  const index = todos.findIndex((todo) => todo.id === id)
   if (index > -1) todos.splice(index, 1)
   toast.success(`Todo Nr. ${index + 1} removed!`)
 }

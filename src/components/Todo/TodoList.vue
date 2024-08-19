@@ -5,8 +5,8 @@ import TodoItem from './TodoItem.vue'
 defineProps(['todos'])
 const emit = defineEmits(['remove'])
 
-const handleRemove = (title: string) => {
-  emit('remove', title)
+const handleRemove = (id: number) => {
+  emit('remove', id)
 }
 </script>
 
