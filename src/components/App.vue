@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
+import { Toaster, toast } from '@steveyuowo/vue-hot-toast'
+import '@steveyuowo/vue-hot-toast/vue-hot-toast.css'
 
 import TodoList from './Todo/TodoList.vue'
 import TodoInput from './Todo/TodoInput.vue'
@@ -16,10 +18,23 @@ const addTodo = (title: string) => {
 const removeTodo = (title: string) => {
   const index = todos.findIndex((todo) => todo.title === title)
   if (index > -1) todos.splice(index, 1)
+  toast.success(`Todo Nr. ${index + 1} removed!`)
 }
 
 const resetTodos = () => {
-  while (todos.length) todos.pop()
+  if (!todos.length) {
+    toast.error('List already empty!')
+    return
+  }
+  const id = toast.loading('Loading...')
+  setTimeout(() => {
+    while (todos.length) todos.pop()
+    toast.update(id, {
+      type: 'success',
+      message: 'Removed todo items!',
+      duration: 1000
+    })
+  }, 500)
 }
 </script>
 
@@ -32,4 +47,5 @@ const resetTodos = () => {
       <TodoInput @add="addTodo" @reset="resetTodos" />
     </main>
   </div>
+  <Toaster />
 </template>

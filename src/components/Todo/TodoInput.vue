@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { toast } from '@steveyuowo/vue-hot-toast'
 import { ref, defineEmits } from 'vue'
 
 const textInput = ref('')
 const emit = defineEmits(['add', 'reset'])
 
 const addTodo = () => {
-  if (textInput.value.trim() === '') return
+  if (textInput.value.trim() === '') {
+    toast.error('Value cant be null!')
+    return
+  }
   emit('add', textInput.value)
   textInput.value = ''
 }
