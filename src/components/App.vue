@@ -18,10 +18,13 @@ const onClickHandler = (event: any) => {
     event.preventDefault()
   }
 
+  if (textInput.value.trim() === '') return
   todos.push({
     title: textInput.value,
     completed: false
   })
+
+  textInput.value = ''
 }
 
 const onChangeHandler = (event: any) => {
@@ -37,14 +40,14 @@ const removeTodo = (title: string) => {
 
 <template>
   <header>
-    <div v-for="(todo, index) of todos" :key="index">
-      {{ todo.title }}
-      <span @click="removeTodo(todo.title)" style="cursor: pointer">❌</span>
+    <div v-for="(item, index) of todos" :key="index">
+      {{ index + 1 }}: {{ item.title }}
+      <span @click="removeTodo(item.title)" style="cursor: pointer">❌</span>
     </div>
   </header>
 
-  <main>
-    <input type="text" @input="onChangeHandler" />
-    <button @click="onClickHandler">Add ToDo</button>
+  <main class="flex gap-4 h-8">
+    <input class="border rounded-lg p-1" type="text" v-model="textInput" @input="onChangeHandler" />
+    <button class="border rounded-lg p-1" @click="onClickHandler">Add ToDo</button>
   </main>
 </template>
